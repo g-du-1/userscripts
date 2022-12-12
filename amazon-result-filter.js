@@ -20,14 +20,14 @@
             const numOfReviewsElem = result.querySelector(numOfReviewsElemSelector);
 
             if (numOfReviewsElem && numOfReviewsElem.textContent) {
-                const numOfReviews = parseInt(numOfReviewsElem.textContent.replace(',', ''));
+                const numOfReviews = parseInt(numOfReviewsElem.textContent.replace(/[(),]/g, ''));
                 if (numOfReviews < reviewLimit) result.style.display = 'none';
             }
         });
     }
 
     setInterval(() => {
-        filterResults(1500, '[data-component-type="s-search-result"]', '.a-link-normal .a-size-base')
+        filterResults(500, '.s-card-container', '.a-link-normal .a-size-base:not(.a-text-bold)')
     }, 1000);
 
 })();
