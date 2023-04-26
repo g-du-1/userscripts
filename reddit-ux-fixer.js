@@ -12,6 +12,12 @@
 (function() {
     'use strict';
 
+    const checkVisible = (elm) => {
+        var rect = elm.getBoundingClientRect();
+        var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+        return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
+    }
+
     const unfuckUI = () => {
         console.log('Unfucking UI...')
 
@@ -73,7 +79,7 @@
         const allFacePlatePartials = document.querySelectorAll('faceplate-partial');
 
         Array.from(allFacePlatePartials).forEach(node => {
-           if (node.method === 'post') {
+           if (node.method === 'post' && node.src.includes('top-level=1') && checkVisible(node)) {
                node.click()
            }
         });
