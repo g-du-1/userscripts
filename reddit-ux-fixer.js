@@ -13,6 +13,59 @@
     'use strict';
 
     setInterval(() => {
-        
+        // LISTING
+
+        const html = document.querySelector('html');
+        html.classList.remove('scroll-disabled');
+        const body = document.querySelector('body');
+        body.classList.remove('scroll-disabled');
+
+        const continueBtn = document.querySelector('button.XPromoPopupRpl__actionButton');
+        if (continueBtn) continueBtn.click();
+
+        const bottomBar = document.querySelector('.XPromoBottomBar');
+        if (bottomBar) bottomBar.style.display = 'none';
+
+        const useAppBtn = document.querySelector('.TopNav__useAppButton');
+        if (useAppBtn) useAppBtn.style.display = 'none';
+
+        const cookieClose = document.querySelector('.EUCookieNotice__close');
+        if (cookieClose) cookieClose.click();
+
+        // POST PAGE
+
+        // Top Cookies
+        const topCookies = document.querySelector("reddit-cookie-banner")?.shadowRoot.querySelector("#reject-nonessential-cookies-button > button")
+        if (topCookies) topCookies.click()
+
+        // Oauth Modal
+        const oauthModal = document.querySelector('#credential_picker_iframe');
+        if (oauthModal) oauthModal.style.display = 'none';
+
+        const allAsyncLoaders = document.querySelectorAll('shreddit-async-loader');
+
+        // Top Use App Btn
+        Array.from(allAsyncLoaders).forEach(node => {
+           if (node.paintGroup === 'xpromo' && node.bundleName === 'top_button') {
+               node.style.display = 'none';
+           }
+        });
+
+        // Bottom Promo Bar
+        const botPromoBar = Array.from(allAsyncLoaders).find(node => node.bundleName === 'bottom_bar_xpromo');
+        if (botPromoBar) botPromoBar.style.display = 'none';
+
+        // Bottom Continue
+        const botContinue = document.querySelector("body > shreddit-app > shreddit-experience-tree").shadowRoot.querySelector("div > shreddit-async-loader").shadowRoot.querySelector("xpromo-app-selector")?.shadowRoot.querySelector("#secondary-button")
+        if (botContinue) botContinue.click()
+
+        // Load More Comments
+        const allFacePlatePartials = document.querySelectorAll('faceplate-partial');
+
+        Array.from(allFacePlatePartials).forEach(node => {
+           if (node.method === 'post') {
+               node.click()
+           }
+        });
     }, 1000);
 })();
