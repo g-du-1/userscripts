@@ -12,5 +12,7 @@
 (function() {
     'use strict';
 
-    // Your code here...
+    setInterval(() => {
+        
+    }, 1000);
 })();
