@@ -12,13 +12,23 @@
 (function() {
     'use strict';
 
-    setInterval(() => {
+    const unfuckUI = () => {
+        console.log('Unfucking UI...')
+
         // LISTING
 
         const html = document.querySelector('html');
         html.classList.remove('scroll-disabled');
         const body = document.querySelector('body');
         body.classList.remove('scroll-disabled');
+
+        const iframes = document.querySelectorAll('iframe')
+
+        Array.from(iframes).forEach(node => {
+           if (node.src.includes('sso')) {
+               node.style.display = 'none';
+           }
+        });
 
         const continueBtn = document.querySelector('button.XPromoPopupRpl__actionButton');
         if (continueBtn) continueBtn.click();
@@ -56,8 +66,8 @@
         if (botPromoBar) botPromoBar.style.display = 'none';
 
         // Bottom Continue
-        const botContinue = document.querySelector("body > shreddit-app > shreddit-experience-tree").shadowRoot.querySelector("div > shreddit-async-loader").shadowRoot.querySelector("xpromo-app-selector")?.shadowRoot.querySelector("#secondary-button")
-        if (botContinue) botContinue.click()
+        // const botContinue = document.querySelector("body > shreddit-app > shreddit-experience-tree").shadowRoot.querySelector("div > shreddit-async-loader").shadowRoot.querySelector("xpromo-app-selector")?.shadowRoot.querySelector("#secondary-button")
+        // if (botContinue) botContinue.click()
 
         // Load More Comments
         const allFacePlatePartials = document.querySelectorAll('faceplate-partial');
@@ -67,5 +77,7 @@
                node.click()
            }
         });
-    }, 1000);
+    }
+
+    document.addEventListener('touchstart', unfuckUI)
 })();
