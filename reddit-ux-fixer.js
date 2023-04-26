@@ -80,4 +80,5 @@
     }
 
     document.addEventListener('touchstart', unfuckUI)
+    document.addEventListener('keydown', unfuckUI)
 })();
