@@ -87,4 +87,5 @@
 
     document.addEventListener('touchstart', unfuckUI)
     document.addEventListener('keydown', unfuckUI)
+    document.addEventListener('input', unfuckUI)
 })();
