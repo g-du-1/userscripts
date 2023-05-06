@@ -73,8 +73,6 @@
     const hideSsoIframe = () => {
         const iframes = document.querySelectorAll("iframe");
 
-        console.assert(iframes.length > 0, "iframes are present");
-
         Array.from(iframes).forEach((node) => {
             if (node.src.includes("sso")) {
                 node.style.display = "none";
