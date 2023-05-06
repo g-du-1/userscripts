@@ -46,7 +46,7 @@
     };
 
     const hideTopAppBtn = () => {
-        const selectors = ["TopNav__promoButton", "TopNav__useAppButton"];
+        const selectors = [".TopNav__promoButton", ".TopNav__useAppButton"];
 
         selectors.forEach((selector) => {
             const button = document.querySelector(selector);
