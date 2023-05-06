@@ -46,13 +46,17 @@
     };
 
     const hideTopAppBtn = () => {
-        const useAppBtn = document.querySelector(".TopNav__useAppButton");
+        const selectors = ["TopNav__promoButton", "TopNav__useAppButton"];
 
-        if (useAppBtn) {
-            useAppBtn.style.display = "none";
+        selectors.forEach((selector) => {
+            const button = document.querySelector(selector);
 
-            console.assert(useAppBtn.style.display === "none", "Use app button is hidden");
-        }
+            if (button) {
+                button.style.display = "none";
+
+                console.assert(button.style.display === "none", "Use app button is hidden");
+            }
+        });
     };
 
     const closeCookieNotice = () => {
