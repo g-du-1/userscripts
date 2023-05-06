@@ -183,8 +183,8 @@
         clickMoreComments(allFacePlatePartials);
     };
 
-    document.addEventListener("load", unfuckUI);
-    document.addEventListener("DOMContentLoaded", unfuckUI);
+    window.addEventListener("load", unfuckUI);
+    window.addEventListener("DOMContentLoaded", unfuckUI);
     document.addEventListener("touchstart", unfuckUI);
     document.addEventListener("keydown", unfuckUI);
     document.addEventListener("input", unfuckUI);
