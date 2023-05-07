@@ -21,6 +21,14 @@
         );
     };
 
+    const removeNsfwScrollPrevention = () => {
+        document.body.style.pointerEvents = "unset";
+        document.body.style.overflow = "unset";
+
+        console.assert(document.body.style.pointerEvents === "unset", "Body Pointer Events is unset");
+        console.assert(document.body.style.overflow === "unset", "Body Overflow is unset");
+    };
+
     const clickContinueInBrowser = () => {
         const continueInBrowserSelector = "button.XPromoPopupRpl__actionButton";
         const continueBtn = document.querySelector(continueInBrowserSelector);
@@ -172,6 +180,7 @@
 
         clickCookieBanner();
         hideOauthModal();
+        removeNsfwScrollPrevention();
 
         const allAsyncLoaders = getAllAsyncLoaders();
 
