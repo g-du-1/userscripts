@@ -74,11 +74,26 @@
         console.assert(!currNsfwBlocker, "NSFW blocker was removed from the document");
     };
 
+    const replaceNsfwBlurredPostImg = () => {
+        const fullImgUrl = document.querySelector("shreddit-screenview-data")?.data?.post?.url;
+
+        if (!fullImgUrl) return;
+
+        const postImg = document.querySelector("#post-image");
+
+        if (!postImg) return;
+
+        postImg.src = fullImgUrl;
+
+        console.assert(postImg.src === fullImgUrl, "Post image src is the full image url");
+    };
+
     const disableNsfwBlocking = (allAsyncLoaders) => {
         removeNsfwScrollPrevention();
         removeNsfwUseAppModal(allAsyncLoaders);
         removeNsfwBlur();
         removeNsfwImgBlocker();
+        replaceNsfwBlurredPostImg();
     };
 
     const clickContinueInBrowser = () => {
@@ -230,18 +245,20 @@
 
         // Post Page
 
-        clickCookieBanner();
-        hideOauthModal();
+        if (window.location.href.includes("comments")) {
+            clickCookieBanner();
+            hideOauthModal();
 
-        const allAsyncLoaders = getAllAsyncLoaders();
+            const allAsyncLoaders = getAllAsyncLoaders();
 
-        hidePostAppBtn(allAsyncLoaders);
-        hideBottomPromoBar(allAsyncLoaders);
-        disableNsfwBlocking(allAsyncLoaders);
+            hidePostAppBtn(allAsyncLoaders);
+            hideBottomPromoBar(allAsyncLoaders);
+            disableNsfwBlocking(allAsyncLoaders);
 
-        const allFacePlatePartials = getAllFacePlatePartials();
+            const allFacePlatePartials = getAllFacePlatePartials();
 
-        clickMoreComments(allFacePlatePartials);
+            clickMoreComments(allFacePlatePartials);
+        }
     };
 
     window.addEventListener("load", unfuckUI);
