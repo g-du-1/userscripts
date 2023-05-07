@@ -263,7 +263,7 @@
         const shadowRoot = commentTree.shadowRoot;
         if (!shadowRoot) return;
 
-        const loadMoreBtn = shadowRoot.querySelector("button");
+        const loadMoreBtn = shadowRoot.querySelector("button.button-brand");
         if (!loadMoreBtn) return;
 
         loadMoreBtn.click();
