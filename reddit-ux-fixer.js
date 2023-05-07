@@ -12,6 +12,20 @@
 (function () {
     ("use strict");
 
+    const addGlobalStyle = (css) => {
+        let head, style;
+
+        head = document.getElementsByTagName("head")[0];
+
+        if (!head) return;
+
+        style = document.createElement("style");
+        style.type = "text/css";
+        style.innerHTML = css;
+
+        head.appendChild(style);
+    };
+
     const removeScrollDisabled = () => {
         document.body.classList.remove("scroll-disabled");
 
@@ -86,6 +100,22 @@
         postImg.src = fullImgUrl;
 
         console.assert(postImg.src === fullImgUrl, "Post image src is the full image url");
+
+        const blurredContainer = document.querySelector("xpromo-nsfw-blocking-container shreddit-blurred-container");
+
+        if (!blurredContainer) return;
+
+        const shadowRoot = blurredContainer.shadowRoot;
+
+        if (!shadowRoot) return;
+
+        const containerWithFilter = shadowRoot.querySelector(".blurred");
+
+        if (!containerWithFilter) return;
+
+        containerWithFilter.style.filter = "none";
+
+        console.assert(containerWithFilter.style.filter === "none", "NSFW blurred filter is removed");
     };
 
     const disableNsfwBlocking = (allAsyncLoaders) => {
@@ -233,6 +263,8 @@
 
     const unfuckUI = () => {
         console.log("Unfucking UI...");
+
+        // addGlobalStyle("html { display: none !important; }");
 
         // Listing
 
