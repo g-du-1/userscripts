@@ -256,6 +256,17 @@
                 // TODO: Assert
             }
         });
+
+        const commentTree = document.querySelector("#comment-tree");
+        if (!commentTree) return;
+
+        const shadowRoot = commentTree.shadowRoot;
+        if (!shadowRoot) return;
+
+        const loadMoreBtn = shadowRoot.querySelector("button");
+        if (!loadMoreBtn) return;
+
+        loadMoreBtn.click();
     };
 
     const getAllAsyncLoaders = () => {
