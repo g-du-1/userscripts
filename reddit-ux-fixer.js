@@ -88,6 +88,17 @@
         console.assert(!currNsfwBlocker, "NSFW blocker was removed from the document");
     };
 
+    const removeNsfwMatureContentModal = () => {
+        const selector = ".XPromoBlockingModalRpl";
+
+        const modal = document.querySelector(selector);
+        if (!modal) return;
+
+        modal.remove();
+
+        console.assert(!document.querySelector(selector), "NSFW mature content modal was removed from the document");
+    };
+
     const replaceNsfwBlurredPostImg = () => {
         const fullImgUrl = document.querySelector("shreddit-screenview-data")?.data?.post?.url;
 
@@ -264,8 +275,6 @@
     const unfuckUI = () => {
         console.log("Unfucking UI...");
 
-        // addGlobalStyle("html { display: none !important; }");
-
         // Listing
 
         removeScrollDisabled();
@@ -274,6 +283,7 @@
         hideTopAppBtn();
         closeCookieNotice();
         hideSsoIframe();
+        removeNsfwMatureContentModal();
 
         // Post Page
 
@@ -292,6 +302,8 @@
             clickMoreComments(allFacePlatePartials);
         }
     };
+
+    addGlobalStyle(".m-blurred { filter: none !important; }");
 
     window.addEventListener("load", unfuckUI);
     window.addEventListener("DOMContentLoaded", unfuckUI);
