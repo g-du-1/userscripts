@@ -21,12 +21,35 @@
         );
     };
 
-    const removeNsfwScrollPrevention = () => {
+    const findNsfwBlocker = (allAsyncLoaders) => {
+        return Array.from(allAsyncLoaders).find((node) => node.bundleName === "nsfw_blocking_modal");
+    };
+
+    const disableNsfwBlocking = (allAsyncLoaders) => {
         document.body.style.pointerEvents = "unset";
         document.body.style.overflow = "unset";
 
         console.assert(document.body.style.pointerEvents === "unset", "Body Pointer Events is unset");
         console.assert(document.body.style.overflow === "unset", "Body Overflow is unset");
+
+        const origNsfwBlocker = findNsfwBlocker(allAsyncLoaders);
+
+        if (origNsfwBlocker) {
+            origNsfwBlocker.remove();
+
+            const allAsyncLoaders = getAllAsyncLoaders();
+            const currNsfwBlocker = findNsfwBlocker(allAsyncLoaders);
+
+            console.assert(!currNsfwBlocker, "NSFW blocker was removed from the document");
+        }
+
+        const sidebarGrid = document.querySelector(".sidebar-grid");
+
+        if (!sidebarGrid) return;
+
+        sidebarGrid.style.filter = "none";
+
+        console.assert(sidebarGrid.style.filter === "none", "Sidebar grid filter is none");
     };
 
     const clickContinueInBrowser = () => {
@@ -180,12 +203,12 @@
 
         clickCookieBanner();
         hideOauthModal();
-        removeNsfwScrollPrevention();
 
         const allAsyncLoaders = getAllAsyncLoaders();
 
         hidePostAppBtn(allAsyncLoaders);
         hideBottomPromoBar(allAsyncLoaders);
+        disableNsfwBlocking(allAsyncLoaders);
 
         const allFacePlatePartials = getAllFacePlatePartials();
 
