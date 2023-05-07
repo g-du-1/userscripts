@@ -266,6 +266,24 @@
         return document.querySelectorAll("faceplate-partial");
     };
 
+    const removeAppSelector = () => {
+        const treeWrap = document.querySelector("shreddit-experience-tree");
+        if (!treeWrap) return;
+
+        const shadowRoot = treeWrap.shadowRoot;
+        if (!shadowRoot) return;
+
+        const asyncLoaders = shadowRoot.querySelectorAll("shreddit-async-loader");
+        if (!asyncLoaders) return;
+
+        const appSelector = Array.from(asyncLoaders).find((node) => node.bundleName === "app_selector");
+        if (!appSelector) return;
+
+        appSelector.remove();
+
+        console.assert(!appSelector, "App selector is not present");
+    };
+
     const checkVisible = (elm) => {
         var rect = elm.getBoundingClientRect();
         var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
@@ -288,6 +306,7 @@
         // Post Page
 
         if (window.location.href.includes("comments")) {
+            removeAppSelector();
             clickCookieBanner();
             hideOauthModal();
 
