@@ -25,24 +25,7 @@
         return Array.from(allAsyncLoaders).find((node) => node.bundleName === "nsfw_blocking_modal");
     };
 
-    const disableNsfwBlocking = (allAsyncLoaders) => {
-        document.body.style.pointerEvents = "unset";
-        document.body.style.overflow = "unset";
-
-        console.assert(document.body.style.pointerEvents === "unset", "Body Pointer Events is unset");
-        console.assert(document.body.style.overflow === "unset", "Body Overflow is unset");
-
-        const origNsfwBlocker = findNsfwBlocker(allAsyncLoaders);
-
-        if (origNsfwBlocker) {
-            origNsfwBlocker.remove();
-
-            const allAsyncLoaders = getAllAsyncLoaders();
-            const currNsfwBlocker = findNsfwBlocker(allAsyncLoaders);
-
-            console.assert(!currNsfwBlocker, "NSFW blocker was removed from the document");
-        }
-
+    const removeNsfwBlur = () => {
         const sidebarGrid = document.querySelector(".sidebar-grid");
 
         if (!sidebarGrid) return;
@@ -50,6 +33,52 @@
         sidebarGrid.style.filter = "none";
 
         console.assert(sidebarGrid.style.filter === "none", "Sidebar grid filter is none");
+    };
+
+    const removeNsfwImgBlocker = () => {
+        const imgBlockWrap = document.querySelector("xpromo-nsfw-blocking-container");
+
+        if (!imgBlockWrap) return;
+
+        const shadowRoot = imgBlockWrap.shadowRoot;
+
+        if (!shadowRoot) return;
+
+        const prompt = shadowRoot.querySelector(".prompt");
+
+        if (!prompt) return;
+
+        prompt.remove();
+
+        console.assert(!shadowRoot.querySelector(".prompt"), "Prompt is not present");
+    };
+
+    const removeNsfwScrollPrevention = () => {
+        document.body.style.pointerEvents = "unset";
+        document.body.style.overflow = "unset";
+
+        console.assert(document.body.style.pointerEvents === "unset", "Body Pointer Events is unset");
+        console.assert(document.body.style.overflow === "unset", "Body Overflow is unset");
+    };
+
+    const removeNsfwUseAppModal = (allAsyncLoaders) => {
+        const origNsfwBlocker = findNsfwBlocker(allAsyncLoaders);
+
+        if (!origNsfwBlocker) return;
+
+        origNsfwBlocker.remove();
+
+        const modifiedLoaders = getAllAsyncLoaders();
+        const currNsfwBlocker = findNsfwBlocker(modifiedLoaders);
+
+        console.assert(!currNsfwBlocker, "NSFW blocker was removed from the document");
+    };
+
+    const disableNsfwBlocking = (allAsyncLoaders) => {
+        removeNsfwScrollPrevention();
+        removeNsfwUseAppModal(allAsyncLoaders);
+        removeNsfwBlur();
+        removeNsfwImgBlocker();
     };
 
     const clickContinueInBrowser = () => {
