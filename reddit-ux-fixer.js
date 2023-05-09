@@ -301,11 +301,17 @@
         return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
     };
 
+    const setLocalData = () => {
+        localStorage.setItem('xpromo-consolidation', new Date());
+        localStorage.setItem('bannerLastClosed', new Date());
+        document.cookie = "eu_cookie={%22opted%22:true%2C%22nonessential%22:false}";
+    }
+
     const unfuckUI = () => {
         console.log("Unfucking UI...");
 
         // Listing
-
+        setLocalData();
         removeScrollDisabled();
         clickContinueInBrowser();
         hideBottomBar();
@@ -340,4 +346,8 @@
     document.addEventListener("touchstart", unfuckUI);
     document.addEventListener("keydown", unfuckUI);
     document.addEventListener("input", unfuckUI);
+
+    setInterval(() => {
+        setLocalData();
+    }, 15 * 60 * 1000);
 })();
