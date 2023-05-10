@@ -168,9 +168,7 @@
             const button = document.querySelector(selector);
 
             if (button) {
-                button.style.display = "none";
-
-                console.assert(button.style.display === "none", "Use app button is hidden");
+                button.remove();
             }
         });
     };
@@ -311,7 +309,6 @@
         console.log("Unfucking UI...");
 
         // Listing
-        setLocalData();
         removeScrollDisabled();
         clickContinueInBrowser();
         hideBottomBar();
@@ -338,6 +335,8 @@
             clickMoreComments(allFacePlatePartials);
         }
     };
+
+    setLocalData();
 
     addGlobalStyle(".m-blurred { filter: none !important; }");
 
