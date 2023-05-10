@@ -33,7 +33,6 @@ class RedditUXTest(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'h1')))
 
         body = driver.find_element(By.CSS_SELECTOR, "body")
-        body.click()
         body.send_keys(Keys.END)
 
         time.sleep(1)
