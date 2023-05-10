@@ -155,9 +155,7 @@
         const bottomBar = document.querySelector(".XPromoBottomBar");
 
         if (bottomBar) {
-            bottomBar.style.display = "none";
-
-            console.assert(bottomBar.style.display === "none", "Bottom bar is hidden");
+            bottomBar.remove();
         }
     };
 

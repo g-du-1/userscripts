@@ -62,6 +62,10 @@ class RedditUXTest(unittest.TestCase):
         driver = self.driver
         self.assertFalse(check_exists_by_xpath('//*[text() = "Use App"]', driver))
 
+    def test_bottom_bar_does_not_exist(self):
+        driver = self.driver
+        self.assertFalse(check_exists_by_xpath('//*[text() = "This page looks better in the app"]', driver))
+
     def tearDown(self):
         self.driver.close()
         self.script_file.close()
