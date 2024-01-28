@@ -27,8 +27,11 @@ function captureVisibleText() {
     }, '');
     const currentURL = window.location.href;
 
+    // Compress continuous whitespace characters into a single whitespace
+    const compressedText = visibleText.replace(/\s+/g, ' ');
+
     return {
-        visibleText,
+        visibleText: compressedText,
         currentURL,
     };
 }
